@@ -43,10 +43,10 @@ python main.py
 For example, in the packaged output of the  `api_client.py` script  is listed as:
 ```python
 +-----------------+------------+---------------+-----------------------+
-|    Interface         | IP Address |     Subnet       |      Description           |
+|    Interface    | IP Address |     Subnet    |      Description      |
 +-----------------+------------+---------------+-----------------------+
-| FastEthernet0/0 | 10.0.2.27  | 255.255.255.0 |        netpalm               |
-| FastEthernet3/0 | 172.16.2.1 | 255.255.255.0 |       Dataset                |
+| FastEthernet0/0 | 10.0.2.27  | 255.255.255.0 |        netpalm        |
+| FastEthernet3/0 | 172.16.2.1 | 255.255.255.0 |       Dataset         |
 +-----------------+------------+---------------+-----------------------+
 ```
 
