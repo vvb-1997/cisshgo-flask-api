@@ -20,9 +20,7 @@ def home():
     form = InputForm()
     if form.validate_on_submit():
         interface = form.Interface.data
-        print(interface)
         data = display_one(interface).get_json()["data"]
-        print(data)
         return render_template('home.html', form=form, title="Home page", data=data)   
     return render_template('home.html', form=form, title="Home page")    
   
