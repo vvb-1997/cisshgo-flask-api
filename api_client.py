@@ -30,7 +30,7 @@ query_all.api_call('http://127.0.0.1:5000/api/')
 query_all.ascii_table()
 
 query_one = Query()
-query_one.api_call('http://127.0.0.1:5000/api/FastEthernet0/0')
+query_one.api_call('http://127.0.0.1:5000/api/FastEthernet0/0/')
 query_one.ascii_table()
 
 query_unknown = Query()

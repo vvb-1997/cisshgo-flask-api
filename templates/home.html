@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="mt-6">
-    <div class="container">
-        <form action="" method="POST">
-            {{ form.hidden_tag() }}
+<div class="container">
+    <div class="content-section border p-2 mt-2">
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Public Profile</legend>
             <div class="form-group">
                 <label for="Interface" >{{ form.Interface.label }}</label>
                 {% if form.Interface.errors %}
@@ -18,31 +20,32 @@
                     {{ form.Interface(class="form-control form-control-md") }}
                 {% endif %}
             </div>
-                {{ form.submit(class="btn btn-outline-primary") }}
-        </form>
+        </fieldset>
+            {{ form.submit(class="btn btn-outline-success mb-1") }}
+    </form>
 
-        {% if data %}
-            <table class="table">
-                <thead>
+    {% if data %}
+    <h4 class="ml-1">Results</h4>
+        <table class="table mt-3">
+            <thead>
+            <tr>
+                <th scope="col">Interface</th>
+                <th scope="col">IP Address</th>
+                <th scope="col">Subnet</th>
+                <th scope="col">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for interface in data %}
                 <tr>
-                    <th scope="col">Interface</th>
-                    <th scope="col">IP Address</th>
-                    <th scope="col">Subnet</th>
-                    <th scope="col">Description</th>
-                </tr>
-                </thead>
-                <tbody>
-                    {% for interface in data %}
-                    <tr>
-                        {% for fields,value in interface.items() %}
-                            <td>{{value}}</td>
-                        {% endfor %}
-                    </tr>    
-                    {% endfor %}               
-                </tbody>
-            </table>       
+                    {% for fields,value in interface.items() %}
+                        <td>{{value}}</td>
+                    {% endfor %}
+                </tr>    
+                {% endfor %}               
+            </tbody>
+        </table>       
     {% endif %}
-    
-    </div>
+</div>
 </div>
 {% endblock %}

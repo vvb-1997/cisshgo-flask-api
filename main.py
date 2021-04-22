@@ -1,11 +1,13 @@
 from flask import Flask, jsonify, request, render_template
 from werkzeug.routing import PathConverter
+from flask_restful import Resource, Api
 from connect import SSHConnector
 from forms import InputForm
 import json
 
 # creating a Flask app
 app = Flask(__name__)
+api = Api(app)
 app.config['JSON_SORT_KEYS'] = False
 app.config['SECRET_KEY'] = 'VeryHardToGuessKey'
 
@@ -20,20 +22,24 @@ def home():
     form = InputForm()
     if form.validate_on_submit():
         interface = form.Interface.data
-        data = display_one(interface).get_json()["data"]
+        data = DisplayOne().get(interface)["data"]
         return render_template('home.html', form=form, title="Home page", data=data)   
+    
     return render_template('home.html', form=form, title="Home page")    
-  
-@app.route('/api/', methods = ['GET'])
-def display_all():
-    interfaces = SSHConnector()
-    return jsonify({'data': interfaces})
 
-@app.route('/api/<int_:interface>', methods = ['GET'])
-def display_one(interface):
-    data = SSHConnector(interface)
-    return jsonify({'data': data})
-  
+class DisplayAll(Resource):
+    def get(self):
+        interfaces = SSHConnector()
+        return ({'data': interfaces})
+
+class DisplayOne(Resource):
+    def get(self,interface):
+        interfaces = SSHConnector(interface)
+        return ({'data': interfaces})
+
+api.add_resource(DisplayAll, '/api/')
+api.add_resource(DisplayOne, '/api/<int_:interface>/')
+
 # driver function
 if __name__ == '__main__':
     app.run(debug = True)
