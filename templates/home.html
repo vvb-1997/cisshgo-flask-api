@@ -6,7 +6,7 @@
         <form action="" method="POST">
             {{ form.hidden_tag() }}
             <div class="form-group">
-                <label for="Interface">{{ form.Interface.label }}</label>
+                <label for="Interface" >{{ form.Interface.label }}</label>
                 {% if form.Interface.errors %}
                     {{ form.Interface(class="form-control form-control-md is-invalid") }}
                     <div class="invalid-feedback">
