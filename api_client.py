@@ -1,30 +1,38 @@
 import requests
-r =requests.get('http://127.0.0.1:5000/api/')
-
-print(r.json())
 from prettytable import PrettyTable
-  
-# creating an empty PrettyTable
-x = PrettyTable()
-  
-# adding data into the table
-# column by column
-x.add_column("First name",
-             ["Shubham", "Saksham", "Preeti", "Ayushi",
-              "Abhishek", "Dinesh", "Chandra"])
-  
-x.add_column("Last name", ["Chauhan", "Chauhan", "Singh",
-                           "Chauhan", "Rai", "Pratap",
-                           "Kant"])
-  
-x.add_column("Salary", [60000, 50000, 40000, 65000, 70000,
-                        80000, 85000])
-x.add_column("City", ["Lucknow", "Hardoi", "Unnao", "Haridwar",
-                      "Greater Noida", "Delhi", "Ghaziabad"])
-  
-x.add_column("DOB", ["22 Feb 1999", "21 Aug 2000", "10 Jan 1995",
-                     "30 Jan 2002", "16 Jan 1999", "3 Aug 1998",
-                     "18 Sept 1997"])
-  
-# printing generated table
-print(x)
+
+class Query: 
+    def __init__(self):
+        self.result = []
+
+    def api_call(self,url):
+        r =requests.get(url)
+
+        self.result = r.json()['data']
+
+    def ascii_table(self):  
+        # creating an empty PrettyTable
+        x = PrettyTable()
+
+        fields = {"interface":"Interface", "ip_address":"IP Address", "subnet":"Subnet", "description":"Description"}
+        x.field_names = list(fields.values())
+
+        for interface in self.result:
+            temp = []
+            for field in fields:
+                temp.append(interface.get(field,None))
+            x.add_row(temp)
+
+        print(x)
+
+query_all = Query()
+query_all.api_call('http://127.0.0.1:5000/api/')
+query_all.ascii_table()
+
+query_one = Query()
+query_one.api_call('http://127.0.0.1:5000/api/FastEthernet0/0')
+query_one.ascii_table()
+
+query_unknown = Query()
+query_unknown.api_call('http://127.0.0.1:5000/api/wrong')
+query_unknown.ascii_table()
