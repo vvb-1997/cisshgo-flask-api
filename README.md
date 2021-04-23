@@ -1,6 +1,6 @@
 # cisshgo-flask-api
 An simple implementation of flask connection with various dummy cisco routers for collecting real time information from the routers.
-(#cisshgo: SSH server to emulate network equipment - kudos to @tbotnz @lykinsb and team!)
+(#cisshgo: SSH server to [emulate network](https://github.com/tbotnz/cisshgo) equipment  - kudos to @tbotnz @lykinsb and team!)
 
 ## Setup
 
@@ -10,14 +10,15 @@ Following are the basic requirement for exceution.
 
 ## Usage
 
-1. Follow the steps for simulation of cisco routes [here](https://github.com/tbotnz/cisshgo)
-2. Install python packages required as shown below:
-```python
-> pip install -r requirements.txt
-... <snip>
+1. Change directory into cisshgo (All dependencies are included in the `/vendor` folder, so no installation step is necessary.)
+2. Execute `go run cissh.go` as shown below:
+3. If you only wish to launch with a single SSH listener for a testing process, you could simply apply `-listeners 1` to the run command:
+```
+go run cissh.go -listeners 1
+2020/09/03 19:41:04 Starting cissh.go ssh server on port :10000
 ```
 
-3. SSH into one of the open ports with `admin` as the password for ssh key generation.
+4. SSH into one of the open ports with `admin` as the password for ssh key generation.
 Change the path of the key in connect.py file as well as the host I/P Address of the cisco device.
 ```python
 ...
@@ -26,7 +27,13 @@ client.connect('ip_address',port=port_number, username='user', password='pass')
 ...
 ```
 
-4. Start Flask by running the following command
+5. Install python packages required as shown below:
+```python
+> pip install -r requirements.txt
+... <snip>
+```
+
+6. Start Flask by running the following command
 ```python
 python main.py
 ```
