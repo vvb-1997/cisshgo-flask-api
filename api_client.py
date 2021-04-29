@@ -25,14 +25,17 @@ class Query:
 
         print(x)
 
+print("Query all interfaces")
 query_all = Query()
 query_all.api_call('http://127.0.0.1:5000/api/')
 query_all.ascii_table()
 
+print("Query one interface")
 query_one = Query()
 query_one.api_call('http://127.0.0.1:5000/api/FastEthernet0/0/')
 query_one.ascii_table()
 
+print("Query unknown interfaces")
 query_unknown = Query()
 query_unknown.api_call('http://127.0.0.1:5000/api/wrong')
 query_unknown.ascii_table()

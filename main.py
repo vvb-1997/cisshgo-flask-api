@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, render_template
 from werkzeug.routing import PathConverter
 from flask_restful import Resource, Api
 from connect import SSHConnector
+# from get_all_interfaces import SSHConnector
 from forms import InputForm
 import json
 
@@ -20,12 +21,14 @@ app.url_map.converters['int_'] = InterfaceConverter
 @app.route('/', methods=['GET', 'POST'])
 def home():
     form = InputForm()
+    # data = DisplayAll().get()["data"]
     if form.validate_on_submit():
         interface = form.Interface.data
         data = DisplayOne().get(interface)["data"]
         return render_template('home.html', form=form, title="Home page", data=data)   
     
-    return render_template('home.html', form=form, title="Home page")    
+    return render_template('home.html', form=form, title="Home page")
+    # return render_template('home.html', form=form, title="Home page", data=data)    
 
 class DisplayAll(Resource):
     def get(self):
